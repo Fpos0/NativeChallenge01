@@ -1,14 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { useStyleContext } from '../contexts/stylesContext';
+
+const {toggleDarkMode,darkMode} = useStyleContext();
 
 export function Header() {
+
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>to.</Text>
-        <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>do</Text>
-      </View>
-    </SafeAreaView>
+    <View style={[styles.header,{backgroundColor:  darkMode ? '#282B5A': '#273FAD'} ]}>
+      <Text style={[styles.headerText,{color:  darkMode ? '#E1E1E6': '#FFF'}]}>to.</Text>
+      <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>do</Text>
+
+      <TouchableOpacity style={styles.btnChangeStyle} onPress={toggleDarkMode}>
+         <Text> {darkMode.toString()}</Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -18,14 +25,18 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingBottom: 44,
-    backgroundColor: '#273FAD',
+    backgroundColor:  darkMode ? '#282B5A': '#273FAD' ,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
   },
   headerText: {
+    color:  darkMode ? '#E1E1E6': '#FFF' ,
     fontSize: 24,
-    color: '#FFF',
+    // color: '#FFF',
     fontFamily: 'Poppins-Regular',
+  },
+  btnChangeStyle : {
+    alignContent: 'flex-end'
   }
 });
